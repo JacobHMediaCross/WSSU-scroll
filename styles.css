@@ -9,6 +9,7 @@
   --field: #f8fafc;
   --muted: #6f7482;
   --max: 1180px;
+  --header-height: 190px;
 }
 
 * {
@@ -17,6 +18,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
 }
 
 body {
@@ -49,8 +51,9 @@ select {
 }
 
 .site-header {
-  position: relative;
-  z-index: 20;
+  position: sticky;
+  top: 0;
+  z-index: 60;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -58,6 +61,7 @@ select {
   background: var(--black);
   border-bottom: 6px solid var(--red);
   padding: 0px 50px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.34);
 }
 
 .main-logo {
@@ -130,16 +134,31 @@ select {
   margin: 6px 0;
   background: var(--white);
   border-radius: 999px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.75);
+  transition: opacity 180ms ease, transform 260ms ease, box-shadow 260ms ease;
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
 }
 
 .mobile-nav {
-  position: absolute;
-  z-index: 19;
-  top: 122px;
+  position: fixed;
+  z-index: 55;
+  top: var(--header-height);
   left: 0;
   right: 0;
   width: 100%;
   padding: 42px 32px;
+  overflow: hidden;
   background: var(--black);
   color: var(--white);
   border-bottom: 3px solid var(--red);
@@ -147,11 +166,52 @@ select {
   font-size: 22px;
   text-align: center;
   text-transform: uppercase;
+  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.48), 0 0 24px rgba(204, 17, 44, 0.3);
+  clip-path: inset(0 0 100% 0);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-14px) scaleY(0.94);
+  transform-origin: top center;
+  transition:
+    clip-path 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 240ms ease,
+    transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-nav[hidden] {
+  display: none;
+}
+
+.mobile-nav.is-open {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scaleY(1);
+}
+
+.mobile-nav.is-closing {
+  pointer-events: none;
 }
 
 .mobile-nav a {
   display: block;
   padding: 12px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 220ms ease, transform 300ms ease;
+}
+
+.mobile-nav.is-open a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-nav.is-open a:nth-child(2) {
+  transition-delay: 55ms;
+}
+
+.mobile-nav.is-open a:nth-child(3) {
+  transition-delay: 110ms;
 }
 
 .mobile-nav a + a {
@@ -226,7 +286,7 @@ select {
   align-items: flex-start;
   justify-content: center;
   flex-wrap: wrap;
-  gap: clamp(34px, 5.8vw, 92px);
+  gap: 5vw;
   width: min(var(--max), 100%);
 }
 
@@ -239,12 +299,10 @@ select {
   min-height: 148px;
 }
 
-.program-type span {
+.neon-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 238px;
-  min-height: 54px;
   padding: 8px 20px;
   border: 3px solid currentColor;
   border-radius: 15px;
@@ -261,21 +319,28 @@ select {
   line-height: 1.28;
 }
 
-.program-type-master {
+.gold {
   color: var(--gold);
 }
 
-.program-type-certificate {
+.blue {
   color: var(--teal);
 }
 
-.program-type-doctoral {
+.green {
   color: var(--green);
 }
 
 .program-type p {
   color: var(--white);
 }
+
+
+.neon-button:hover {
+  cursor:pointer;
+  color: white;
+}
+
 
 .inquiry-section {
   position: relative;
@@ -307,7 +372,7 @@ select {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 210px;
+  height: 100px;
   background: linear-gradient(180deg, rgba(213, 35, 52, 0) 0%, rgba(211, 30, 50, 0.25) 34%, #cc112c 100%);
   pointer-events: none;
 }
@@ -330,13 +395,6 @@ select {
   opacity: 0.8;
 }
 
-.campus-right {
-  right: 0;
-  bottom: 12px;
-  width: clamp(360px, 62vw, 882px);
-  opacity: 0.82;
-}
-
 .inquiry-section-landing > .photo-card,
 .inquiry-section-landing > .inquiry-copy {
   position: relative;
@@ -348,7 +406,7 @@ select {
 }
 
 .inquiry-section-landing > .inquiry-copy {
-  flex: 0 1 561px;
+  flex: 0 1 fit-content;
 }
 
 .photo-card {
@@ -494,10 +552,7 @@ select {
   justify-content: flex-start;
   overflow: hidden;
   padding: 138px 24px 150px;
-  background:
-    radial-gradient(circle at 3% 68%, rgba(255, 38, 61, 0.85) 0 7%, rgba(255, 38, 61, 0.42) 14%, rgba(0, 0, 0, 0) 25%),
-    radial-gradient(circle at 100% 50%, rgba(255, 38, 61, 0.9) 0 8%, rgba(255, 38, 61, 0.42) 15%, rgba(0, 0, 0, 0) 26%),
-    var(--black);
+  background-color: var(--black);
   color: var(--white);
 }
 
@@ -551,43 +606,21 @@ select {
   position: relative;
   z-index: 2;
   width: min(var(--max), 100%);
-  min-height: 1000px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  gap: 13px;
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
   font-size: clamp(19px, 2.2vw, 32px);
   font-weight: 600;
   text-align: center;
 }
 
 .power-points li {
-  position: absolute;
-  width: min(330px, 30vw);
-}
-
-.point-career {
-  top: 235px;
-  right: 15%;
-}
-
-.point-earning {
-  top: 512px;
-  left: 4%;
-}
-
-.point-employers {
-  top: 696px;
-  left: 39%;
-}
-
-.point-tuition {
-  top: 1010px;
-  right: 18%;
-}
-
-.point-support {
-  top: 1174px;
-  left: 14%;
+  position: relative;
+  padding-left: 0;
 }
 
 .dean-quote {
@@ -1051,11 +1084,130 @@ select {
     padding-bottom: 1vw;
     position: absolute;
     top: -7vw;
-    left: -5vw;
+	    left: -5vw;
+}
+
+.desktop-nav a,
+.mobile-nav a,
+.program-finder h2,
+.neon-button,
+.inquiry-copy h2,
+.outline-button,
+.aid-band h2,
+.power-section h2,
+.program-hero h1,
+.program-intro h2,
+.innovators-copy h2,
+.career-paths h2,
+.stats-grid strong,
+.lead-room-section h2,
+.affordability-section h2,
+.serve-section h2 {
+  text-shadow:
+    0 0 4px currentColor,
+    0 0 12px currentColor,
+    0 0 26px currentColor;
+  animation: neon-flicker 1.65s linear 1 both;
+}
+
+.neon-button,
+.outline-button,
+.nav-contact {
+  box-shadow:
+    0 0 10px currentColor,
+    inset 0 0 8px currentColor;
+}
+
+.desktop-nav a:nth-child(2),
+.mobile-nav a:nth-child(2),
+.neon-button.blue,
+.inquiry-copy h2 {
+  animation-delay: 620ms;
+}
+
+.desktop-nav a:nth-child(3),
+.mobile-nav a:nth-child(3),
+.neon-button.green,
+.aid-band h2,
+.lead-room-section h2 {
+  animation-delay: 1.15s;
+}
+
+@keyframes neon-flicker {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+    text-shadow:
+      0 0 4px currentColor,
+      0 0 12px currentColor,
+      0 0 26px currentColor;
+  }
+
+  19%,
+  24%,
+  54% {
+    opacity: 0.74;
+    filter: brightness(0.76);
+    text-shadow:
+      0 0 2px currentColor,
+      0 0 7px currentColor,
+      0 0 12px currentColor;
+  }
+
+  20%,
+  55% {
+    opacity: 0.38;
+    filter: brightness(0.5);
+    text-shadow: 0 0 2px currentColor;
+  }
+
+  21%,
+  56% {
+    opacity: 0.95;
+    filter: brightness(1.2);
+    text-shadow:
+      0 0 5px currentColor,
+      0 0 18px currentColor,
+      0 0 34px currentColor;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-nav a,
+  .mobile-nav,
+  .mobile-nav a,
+  .menu-toggle span,
+  .program-finder h2,
+  .neon-button,
+  .inquiry-copy h2,
+  .outline-button,
+  .aid-band h2,
+  .power-section h2,
+  .program-hero h1,
+  .program-intro h2,
+  .innovators-copy h2,
+  .career-paths h2,
+  .stats-grid strong,
+  .lead-room-section h2,
+  .affordability-section h2,
+  .serve-section h2 {
+    animation: none;
+    transition: none;
+  }
 }
 
 @media (max-width: 980px) {
   /* These only apply to screens 980px or less */
+  :root {
+    --header-height: 122px;
+  }
+
   .form-images{
     display: none;
   }
@@ -1123,23 +1275,29 @@ select {
 
 @media (max-width: 720px) {
 /* When the screen is 720px or less, the below apply */
-.program-code{
-    width: 13vw;
-    height: 13vw;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.86);
-    color: var(--gold);
-    font-size: 3vw;
-    font-weight: 800;
-    text-align: center;
-    DISPLAY: INLINE-FLEX;
-    JUSTIFY-CONTENT: CENTER;
-    ALIGN-ITEMS: end;
-    padding-bottom: 2vw;
-    position: absolute;
-    top: -9vw;
-    left: -7.5vw;
-}
+  .program-code{
+      width: 13vw;
+      height: 13vw;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--gold);
+      font-size: 3vw;
+      font-weight: 800;
+      text-align: center;
+      DISPLAY: INLINE-FLEX;
+      JUSTIFY-CONTENT: CENTER;
+      ALIGN-ITEMS: end;
+      padding-bottom: 2vw;
+      position: absolute;
+      top: -9vw;
+      left: -7.5vw;
+  }
+
+  .neon-button {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+
   .section-inner {
     width: min(100% - 28px, 393px);
   }
@@ -1188,7 +1346,7 @@ select {
 
   .program-type p {
     width: 100%;
-    font-size: 13px;
+    font-size: 18px;
   }
 
   .inquiry-section {
@@ -1196,11 +1354,11 @@ select {
   }
 
   .inquiry-section-landing {
-    padding: 58px 14px 100px;
+    padding: 58px 13vw 100px;
   }
 
   .inquiry-section-landing::after {
-    height: 118px;
+    height: 50px;
   }
 
   .inquiry-section-landing .photo-card {
@@ -1292,39 +1450,7 @@ select {
   }
 
   .power-points {
-    width: min(100%, 393px);
-    min-height: 560px;
-    font-size: 13px;
-  }
-
-  .power-points li {
-    width: 145px;
-  }
-
-  .point-career {
-    top: 128px;
-    right: 15%;
-  }
-
-  .point-earning {
-    top: 247px;
-    left: 66%;
-  }
-
-  .point-employers {
-    top: 326px;
-    left: 28%;
-  }
-
-  .point-tuition {
-    top: 442px;
-    left: 0;
-    right: auto;
-  }
-
-  .point-support {
-    top: 514px;
-    left: 28%;
+    font-size: 14px;
   }
 
   .dean-quote {
