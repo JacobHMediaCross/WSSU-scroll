@@ -153,19 +153,20 @@ select {
 }
 
 .landing-hero {
-  position: relative;
-  min-height: 662px;
-  overflow: hidden;
-  background: var(--black);
-  color: var(--white);
+    position: relative;
+    min-height: 42vw;
+    overflow: hidden;
+    background: var(--black);
+    color: var(--white);
 }
 
 .hero-art {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.1) 18%, rgba(0, 0, 0, 0.82) 100%),
-    url("assets/landing-hero.gif") center 42% / cover no-repeat;
+    aspect-ratio: 1440 / 660;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 18%, rgba(0, 0, 0, 0.82) 100%), url(assets/landing-hero.gif) center 42% / cover no-repeat;
+    overflow: hidden;
+    min-height: 42vw;
 }
 
 .hero-title {
@@ -269,7 +270,6 @@ select {
 .inquiry-section {
   position: relative;
   overflow: hidden;
-  padding: 108px 0 126px;
   background: var(--white);
 }
 
@@ -283,16 +283,6 @@ select {
   background: var(--red);
 }
 
-.inquiry-section::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 180px;
-  background: linear-gradient(180deg, rgba(213, 35, 52, 0) 0%, rgba(211, 30, 50, 0.24) 34%, #cc112c 100%);
-  pointer-events: none;
-}
 
 .campus-collage {
   position: absolute;
@@ -699,16 +689,15 @@ select {
 }
 
 .program-hero-image {
-  flex: 1 1 52%;
-  background: url("assets/program-hero.jpg") center / cover no-repeat;
-  min-height: inherit;
+  flex: 1 1 50%;
+  background: url("assets/program-hero.jpg") right / cover no-repeat;
 }
 
 .program-hero-content {
   position: relative;
   z-index: 1;
   display: flex;
-  flex: 1 1 48%;
+  flex: 1 1 50%;
   flex-direction: column;
   min-height: inherit;
   align-items: flex-start;
@@ -787,9 +776,9 @@ select {
 .inquiry-section-program {
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   gap: clamp(58px, 8vw, 112px);
-  padding-top: 126px;
+  /* padding-top: 126px; */
   padding-inline: 24px;
 }
 
@@ -1032,26 +1021,28 @@ select {
 
 
 .program-code {
-    width: 66px;
-    height: 66px;
+    width: 10vw;
+    height: 10vw;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.86);
     color: var(--gold);
-    font-size: 15px;
+    font-size: 2vw;
     font-weight: 800;
     text-align: center;
     DISPLAY: INLINE-FLEX;
     JUSTIFY-CONTENT: CENTER;
     ALIGN-ITEMS: end;
-    padding-bottom: 10px;
+    padding-bottom: 1vw;
     position: absolute;
-    top: -48px;
-    left: -33px;
+    top: -7vw;
+    left: -5vw;
 }
 
 @media (max-width: 980px) {
   /* These only apply to screens 980px or less */
-
+  .form-images{
+    display: none;
+  }
   .site-header {
     min-height: 122px;
     padding: 26px 28px 24px;
@@ -1117,7 +1108,23 @@ select {
 
 @media (max-width: 720px) {
 /* When the screen is 720px or less, the below apply */
-
+.program-code{
+    width: 13vw;
+    height: 13vw;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.86);
+    color: var(--gold);
+    font-size: 3vw;
+    font-weight: 800;
+    text-align: center;
+    DISPLAY: INLINE-FLEX;
+    JUSTIFY-CONTENT: CENTER;
+    ALIGN-ITEMS: end;
+    padding-bottom: 2vw;
+    position: absolute;
+    top: -9vw;
+    left: -7.5vw;
+}
   .section-inner {
     width: min(100% - 28px, 393px);
   }
@@ -1125,12 +1132,7 @@ select {
   .landing-hero {
     min-height: 271px;
   }
-
-  .program-hero-image {
-    background-position: center;
-  }
   
-
   .program-finder {
     padding: 32px 0 30px;
   }
@@ -1361,9 +1363,8 @@ select {
   }
 
   .program-hero-image {
-    flex-basis: 52%;
-    min-height: 216px;
-    background-position: 35% 18%;
+    flex-basis: 50%;
+    background-position: right;
   }
 
   .program-hero-content {
@@ -1520,4 +1521,9 @@ select {
     min-height: 50px;
     font-size: 18px;
   }
+}
+
+
+@media (max-width: 350px) {
+
 }
