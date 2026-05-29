@@ -1,6 +1,56 @@
 const menuButton = document.querySelector(".menu-toggle");
 const mobileNav = document.querySelector(".mobile-nav");
 
+const neonScrollSelectors = [
+  ".desktop-nav a:not(.nav-contact)",
+  ".mobile-nav a",
+  ".program-finder h2",
+  ".inquiry-copy h2",
+  ".aid-band h2",
+  ".power-section h2",
+  ".power-points li",
+  ".program-code",
+  ".program-hero h1",
+  ".program-intro h2",
+  ".innovators-copy h2",
+  ".career-paths h2",
+  ".stats-grid strong",
+  ".lead-room-section h2",
+  ".affordability-section h2",
+  ".serve-section h2",
+].join(",");
+
+// Neon text waits until it is meaningfully in view before doing its one-time flicker-on animation.
+const neonTargets = document.querySelectorAll(neonScrollSelectors);
+
+neonTargets.forEach((target) => {
+  target.classList.add("neon-on-scroll");
+});
+
+if ("IntersectionObserver" in window) {
+  const neonObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("neon-lit");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      rootMargin: "0px 0px -22% 0px",
+      threshold: 0.25,
+    },
+  );
+
+  neonTargets.forEach((target) => neonObserver.observe(target));
+} else {
+  // Older browsers still get the finished glow, just without the scroll-triggered timing.
+  neonTargets.forEach((target) => {
+    target.classList.add("neon-lit");
+  });
+}
+
 // Only wire up the mobile menu if the current page includes both menu elements.
 if (menuButton && mobileNav) {
   // Keep this breakpoint in sync with the CSS rule that hides the burger menu.
