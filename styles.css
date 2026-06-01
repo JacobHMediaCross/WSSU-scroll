@@ -104,9 +104,11 @@ select {
   transition: color 180ms ease, text-shadow 180ms ease, box-shadow 180ms ease;
 }
 
-.desktop-nav a:not(.nav-contact):hover {
+.desktop-nav a:not(.nav-contact):hover,
+.desktop-nav a:not(.nav-contact):focus-visible,
+.mobile-nav a:hover,
+.mobile-nav a:focus-visible {
   color: var(--red-bright);
-  text-shadow: 0 0 12px rgba(213, 35, 52, 0.8);
 }
 
 .nav-contact {
@@ -336,9 +338,10 @@ select {
 }
 
 
-.neon-button:hover {
-  cursor:pointer;
-  color: white;
+.neon-button:hover,
+.neon-button:focus-visible {
+  color: var(--white);
+  cursor: pointer;
 }
 
 
@@ -483,6 +486,7 @@ select {
 }
 
 .outline-button {
+  appearance: none;
   align-self: center;
   display: inline-flex;
   align-items: center;
@@ -492,7 +496,7 @@ select {
   padding: 9px 26px;
   border: 3px solid var(--red);
   border-radius: 19px;
-  background: var(--white);
+  background: transparent;
   color: var(--red);
   cursor: pointer;
   font-family: "Tilt Neon", sans-serif;
@@ -500,12 +504,12 @@ select {
   line-height: 1;
   text-align: center;
   text-transform: uppercase;
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition: color 180ms ease, text-shadow 180ms ease, box-shadow 180ms ease;
 }
 
-.outline-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 18px rgba(204, 17, 44, 0.34);
+.outline-button:hover,
+.outline-button:focus-visible {
+  background: transparent;
 }
 
 .outline-button-gold {
@@ -549,11 +553,13 @@ select {
 .power-section {
   position: relative;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   overflow: hidden;
   padding: 138px 24px 150px;
   background-color: var(--black);
   color: var(--white);
+  --power-ram-size: clamp(112px, 15.5vw, 198px);
+  --power-ram-y: 0px;
 }
 
 .power-section h2 {
@@ -602,29 +608,73 @@ select {
   filter: drop-shadow(0 0 12px rgba(204, 17, 44, 0.75));
 }
 
-.power-points {
+.power-points-wrap {
   position: relative;
   z-index: 2;
-  width: min(var(--max), 100%);
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-  gap: 13px;
-  list-style-type: none;
-  margin-left: 0;
-  padding-left: 0;
-  font-size: clamp(19px, 2.2vw, 32px);
-  font-weight: 600;
-  text-align: center;
+  width: min(1149px, 100%);
+}
+
+.power-ram-head {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: var(--power-ram-size);
+  aspect-ratio: 198 / 180;
+  opacity: 0;
+  transform: translate3d(0, var(--power-ram-y), 0) scale(0.94);
+  filter: drop-shadow(0 0 12px rgba(213, 35, 52, 0.9));
+  pointer-events: none;
+  transition:
+    opacity 260ms ease,
+    transform 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 300ms ease;
+}
+
+.power-section.power-sequence-started .power-ram-head {
+  opacity: 1;
+  transform: translate3d(0, var(--power-ram-y), 0) scale(.75);
+}
+
+.power-points {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 54px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: clamp(28px, 3.15vw, 37px);
+    font-weight: 600;
+    text-align: center;
+    padding-top: 45px;
 }
 
 .power-points li {
   position: relative;
-  padding-left: 0;
-  font-family: "Tilt Neon", sans-serif;
-  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 92px;
+  padding-inline: clamp(100px, 18vw, 215px);
+  font-family: 'Tilt Neon';
+  font-weight: 600;
   line-height: 1.18;
-  text-transform: uppercase;
+  opacity: 1;
+  filter: none;
+  text-shadow: none;
+  transition: opacity 220ms ease, filter 220ms ease, text-shadow 220ms ease, font-weight 220ms ease;
+}
+
+.power-points li.is-active {
+  font-weight: 800;
+  filter: brightness(1);
+  text-shadow:
+    0 0 6px currentColor,
+    0 0 16px currentColor,
+    0 0 30px currentColor;
+  animation: neon-flicker 1.25s linear 1 both;
 }
 
 .dean-quote {
@@ -858,13 +908,14 @@ select {
   justify-content: center;
   flex-wrap: wrap;
   gap: clamp(60px, 8vw, 110px);
-  overflow: hidden;
   padding: 132px 0 136px;
   padding-inline: 24px;
   background:
     radial-gradient(circle at 58% 54%, rgba(255, 38, 61, 0.72) 0 12%, rgba(255, 38, 61, 0.24) 22%, rgba(0, 0, 0, 0) 34%),
     var(--black);
   color: var(--white);
+  position: relative;
+  overflow: visible;
 }
 
 .innovators-grid {
@@ -1115,15 +1166,55 @@ select {
 .neon-button:hover,
 .neon-button:focus-visible,
 .outline-button:hover,
-.outline-button:focus-visible {
+.outline-button:focus-visible,
+.desktop-nav a:hover,
+.desktop-nav a:focus-visible,
+.mobile-nav a:hover,
+.mobile-nav a:focus-visible {
   text-shadow:
     0 0 4px currentColor,
     0 0 12px currentColor,
     0 0 26px currentColor;
+  animation: neon-control-flicker 1.15s linear 1 both;
+}
+
+.neon-button:hover,
+.neon-button:focus-visible,
+.outline-button:hover,
+.outline-button:focus-visible,
+.nav-contact:hover,
+.nav-contact:focus-visible {
   box-shadow:
     0 0 10px currentColor,
     inset 0 0 8px currentColor;
-  animation: neon-flicker 1.15s linear 1 both;
+}
+
+@keyframes neon-control-flicker {
+  0%,
+  9%,
+  14%,
+  19%,
+  24%,
+  54% {
+    text-shadow:
+      0 0 1px currentColor,
+      0 0 4px currentColor;
+  }
+
+  10%,
+  13%,
+  20%,
+  23%,
+  25%,
+  53%,
+  55%,
+  57%,
+  100% {
+    text-shadow:
+      0 0 4px currentColor,
+      0 0 12px currentColor,
+      0 0 26px currentColor;
+  }
 }
 
 @keyframes neon-flicker {
@@ -1162,10 +1253,17 @@ select {
   .mobile-nav,
   .menu-toggle span,
   .mobile-nav a,
+  .desktop-nav a:hover,
+  .desktop-nav a:focus-visible,
+  .mobile-nav a:hover,
+  .mobile-nav a:focus-visible,
   .neon-button:hover,
   .neon-button:focus-visible,
   .outline-button:hover,
   .outline-button:focus-visible,
+  .power-ram-head,
+  .power-points li,
+  .power-points li.is-active,
   .neon-on-scroll.neon-lit {
     animation: none;
     transition: none;
@@ -1176,6 +1274,14 @@ select {
   /* These only apply to screens 980px or less */
   :root {
     --header-height: 122px;
+  }
+
+  .innovators-section .photo-card {
+    bottom: -40vw;
+    position:absolute;
+    border-width: 3px;
+    border-radius: 19px;
+    aspect-ratio: 250 / 300;
   }
 
   .form-images{
@@ -1261,6 +1367,10 @@ select {
       position: absolute;
       top: -9vw;
       left: -7.5vw;
+  }
+
+  .power-points {
+    padding-top: 0px;
   }
 
   .neon-button {
@@ -1401,6 +1511,7 @@ select {
 
   .power-section {
     padding: 45px 14px 48px;
+    --power-ram-size: clamp(64px, 18vw, 92px);
   }
 
   .power-section h2 {
@@ -1419,8 +1530,19 @@ select {
     width: 70px;
   }
 
+  .power-points-wrap {
+    width: min(100%, 393px);
+    margin-top: 42px;
+  }
+
   .power-points {
-    font-size: 14px;
+    gap: 22px;
+    font-size: clamp(19px, 5vw, 24px);
+  }
+
+  .power-points li {
+    min-height: 52px;
+    padding-inline: clamp(72px, 20vw, 96px);
   }
 
   .dean-quote {
@@ -1542,12 +1664,6 @@ select {
   .innovators-copy ul {
     gap: 11px;
     font-size: 15px;
-  }
-
-  .innovators-section .photo-card {
-    width: 248px;
-    border-width: 3px;
-    border-radius: 19px;
   }
 
   .career-paths {
