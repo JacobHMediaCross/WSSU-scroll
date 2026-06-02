@@ -104,6 +104,12 @@ svg {
 #desktop-scroll-section {
   display: none;
 }
+.is-neon-lit {
+  font-weight: 400;
+  filter: brightness(1);
+  text-shadow: 0 0 6px currentColor, 0 0 16px currentColor, 0 0 30px currentColor;
+  animation: neon-flicker 1.25s linear 1 both;
+}
 @media only screen and (min-width: 405px) and (max-width: 500px) {
   #point-earning {
     margin-top: 7.2rem;
@@ -240,6 +246,7 @@ svg {
     margin: 1rem auto 0;
     width: 57%;
     font-size: 1.2rem;
+    transition: opacity 220ms ease, filter 220ms ease, text-shadow 220ms ease, font-weight 220ms ease;
   }
   #desktop-scroll-section {
     height: auto;
