@@ -15,6 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="scroll_styles.css" />
   </head>
   <body>
     <header class="site-header">
@@ -117,19 +118,50 @@
         <p>Through scholarships, grants, and financial aid, we make pursuing your graduate degree a reality.</p>
       </section>
 
-      <section class="flex column power-section" id="power-section">
-        <h2>The <span>Power</span> of a<br />WSSU Graduate Degree</h2>
+      <section id="scroll-section">
+        <section class="flex column power-section" id="power-section">
+          <h2>The <span>Power</span> of a<br />WSSU Graduate Degree</h2>
+        </section>
 
-        <div class="power-points-wrap">
-          <img class="power-ram-head" src="assets/ram-head.png" alt="" aria-hidden="true" />
+        <div class="stage">
+          <svg viewBox="0 0 244 548" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path id="motion-path" d="M22.3033 447.25C45.3033 416.25 237.115 406.418 241.067 336.418C245.909 250.754 1 285.817 1 197.69C1 109.563 189.584 168.833 232.392 69.9565C245.718 39.1816 243.198 18.6831 238.674 0.238159" />
+          </svg>
 
-          <ul class="power-points">
-            <li class="point-career">Proven track record for career mobility</li>
-            <li class="point-earning">Higher earning potential</li>
-            <li class="point-employers">Direct access to employers in your field</li>
-            <li class="point-tuition">Affordable tuition</li>
-            <li class="point-support">Personalized support from faculty &amp; staff</li>
-          </ul>
+          <img id="ram-head" src="assets/ram-head.png" alt="Ram" />
+
+          <div id="animation-titles">
+            <div class="animation-title" id="point-career">Proven track record for career mobility</div>
+            <div class="animation-title" id="point-earning">Higher earning potential</div>
+            <div class="animation-title" id="point-employers">Direct access to employers in your field</div>
+            <div class="animation-title" id="point-tuition">Affordable tuition</div>
+            <div class="animation-title" id="point-support">Personalized support from faculty &amp; staff</div>
+          </div>
+        </div>
+        <div class="spacer">
+
+        </div>
+      </section>
+
+      <section id="desktop-scroll-section">
+        <div class="desktop-stage">
+          <svg viewBox="0 0 938 1857" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path id="desktop-motion-path" d="M2.59363 1854.72C205.803 1606.85 916.184 1599.01 929.453 1363.99C945.705 1076.38 123.512 1194.1 123.512 898.224C123.512 602.346 756.615 801.337 900.327 469.371C945.066 366.047 937.789 62.7259 922.602 0.798828" />
+          </svg>
+
+          <img id="desktop-ram-head" src="assets/ram-head.png" alt="Ram" />
+
+          <section class="flex column power-section" id="power-section">
+            <h2>The <span>Power</span> of a<br />WSSU Graduate Degree</h2>
+          </section>
+
+          <div id="desktop-animation-titles">
+            <div class="desktop-animation-title" id="desktop-point-career">Proven track record for career mobility</div>
+            <div class="desktop-animation-title" id="desktop-point-earning">Higher earning potential</div>
+            <div class="desktop-animation-title" id="desktop-point-employers">Direct access to employers in your field</div>
+            <div class="desktop-animation-title" id="desktop-point-tuition">Affordable tuition</div>
+            <div class="desktop-animation-title" id="desktop-point-support">Personalized support from faculty &amp; staff</div>
+          </div>
         </div>
       </section>
 
@@ -163,5 +195,54 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <script src="js/gsap.min.js"></script>
+    <script src="js/MotionPathPlugin.min.js"></script>
+    <script src="js/ScrollTrigger.min.js"></script>
+
+    <script>
+      gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
+
+      gsap.to("#ram-head", {
+        ease: "none",
+        motionPath: {
+          path: "#motion-path",
+          align: "#motion-path",
+          alignOrigin: [0.5, 0.5],
+          autoRotate: false,
+          start: 1,
+          end: 0,
+        },
+        scrollTrigger: {
+          trigger: "#scroll-section",
+          start: "top-=80 top",
+          end: "+=2500",
+          scrub: true,
+          pin: true,
+        }
+      });
+
+
+      gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
+
+      gsap.to("#desktop-ram-head", {
+        ease: "none",
+        motionPath: {
+          path: "#desktop-motion-path",
+          align: "#desktop-motion-path",
+          alignOrigin: [0.5, 0.5],
+          autoRotate: false,
+          start: 1,
+          end: 0,
+        },
+        scrollTrigger: {
+          trigger: "#desktop-scroll-section",
+          start: "top-=180 top",
+          end: "+=1000",
+          scrub: true,
+          pin: false,
+        }
+      });
+    </script>
   </body>
 </html>

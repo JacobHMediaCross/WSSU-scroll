@@ -1,0 +1,269 @@
+
+.power-section {
+  padding-top: 1.8rem;
+  padding-bottom: 5rem;
+  background-color: transparent;
+}
+#scroll-section {
+  position: relative;
+  width: 100vw;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background-color: #000;
+  padding-top: 2rem;
+}
+#scroll-section .power-points {
+  color: #fff;
+}
+.stage {
+  position: relative;
+  width: min(80vw, 360px);
+  height: 80vh;
+  color: #fff;
+  margin-top: -2.5rem;
+}
+svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  width: 100vw;
+  height: auto;
+  max-width: 100%;
+}
+#motion-path {
+  fill: none;
+  stroke: white;
+  stroke-width: 1.7;
+  stroke-miterlimit: 10;
+  filter: drop-shadow(1px 0px 0px red)
+    drop-shadow(-1px 0px 0px red)
+    drop-shadow(0px 1px 0px red)
+    drop-shadow(0px -1px 0px red);
+}
+#ram-head {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  transform-origin: center center;
+  z-index: 2;
+}
+.spacer {
+  height: 0vh;
+}
+#animation-heading-container {
+  padding: 1.2rem 0;
+  background-color: #000;
+}
+#animation-heading-container h2 {
+  padding-top: 1.2rem;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  color: var(--red-bright);
+  font-family: "Tilt Neon", sans-serif;
+  font-size: clamp(28px, 3.8vw, 53px);
+  font-weight: 400;
+  line-height: 1.12;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 0 14px rgba(213, 35, 52, 0.65);
+}
+#animation-titles {
+  position: relative;
+  font-size: 1.5rem;
+}
+.animation-title {
+  position: relative;
+  text-align: center;
+  margin: 11vw auto 0;
+  margin-top: 8vw;
+  width: 57%;
+  font-size: 0.9rem;
+}
+#point-earning {
+  margin-top: 6.2rem;
+  margin-left: 43vw;
+  width: 47%;
+}
+#point-employers {
+  margin-top: 1.3rem;
+  width: 53%;
+  left: -12vw;
+}
+#point-tuition {
+  margin-top: 4.4rem;
+  width: 66%;
+  left: -6rem;
+}
+#point-support {
+  margin-top: 1.8rem;
+  width: 57%;
+  left: 3rem;
+}
+#desktop-scroll-section {
+  display: none;
+}
+@media only screen and (min-width: 405px) and (max-width: 500px) {
+  #point-earning {
+    margin-top: 7.2rem;
+  }
+  #point-tuition {
+    margin-top: 6rem;
+  }
+}
+@media only screen and (min-width: 500px) {
+  #scroll-section {
+    display: none;
+  }
+  #desktop-scroll-section {
+    display: block;
+  }
+  .power-section {
+    width: 102%;
+  }
+  .power-section h2 {
+    font-size: clamp(38px, 3.9vw, 50px) !important;
+    margin-top: 4rem;
+  }
+
+  #desktop-scroll-section {
+    background: no-repeat top center url("assets/group_12.png");
+    background-size: cover;
+    position: relative;
+    width: 100vw;
+    height: 77rem;
+    overflow: hidden;
+    display: block;
+    place-items: center;
+    background-color: #000;
+    padding-top: 2rem;
+  }
+  #desktop-scroll-section .power-points {
+    color: #fff;
+  }
+  .desktop-stage {
+    position: relative;
+    width: 52vw;
+    height: 80vh;
+    color: #fff;
+    margin-top: -2.5rem;
+    max-width: 640px;
+  }
+  svg {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+    width: 100vw;
+    height: auto;
+    max-width: 100%;
+  }
+  #desktop-motion-path {
+    fill: none;
+    stroke: white;
+    stroke-width: 1.7;
+    stroke-miterlimit: 10;
+    filter: drop-shadow(1px 0px 0px red)
+      drop-shadow(-1px 0px 0px red)
+      drop-shadow(0px 1px 0px red)
+      drop-shadow(0px -1px 0px red);
+  }
+  #desktop-ram-head {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    transform-origin: center center;
+    z-index: 2;
+  }
+  #desktop-animation-heading-container {
+    padding: 1.2rem 0;
+    background-color: #000;
+  }
+  #desktop-animation-heading-container h2 {
+    padding-top: 1.2rem;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    color: var(--red-bright);
+    font-family: "Tilt Neon", sans-serif;
+    font-size: clamp(28px, 3.8vw, 53px);
+    font-weight: 400;
+    line-height: 1.12;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 0 14px rgba(213, 35, 52, 0.65);
+  }
+  #desktop-animation-titles {
+    position: relative;
+    font-size: 1.5rem;
+  }
+  .desktop-animation-title {
+    position: relative;
+    text-align: center;
+    margin: 11vw auto 0;
+    margin-top: 1vw;
+    width: 57%;
+    font-size: 2rem;
+  }
+  #desktop-point-earning {
+    margin-top: 6.2rem;
+    margin-left: -13rem;
+    width: 47%;
+  }
+  #desktop-point-employers {
+    margin-top: 0rem;
+    width: 55%;
+    left: 0vw;
+  }
+  #desktop-point-tuition {
+    margin-top: 15.2rem;
+    margin-left: 16rem;
+    width: 47%;
+  }
+  #desktop-point-support {
+    margin-top: 6rem;
+    width: 57%;
+    left: -18rem;
+  }
+}
+@media only screen and (min-width: 501px) and (max-width: 1000px) {
+  .power-section {
+    padding-bottom: 3rem;
+  }
+  .power-section h2 {
+    font-size: clamp(31px, 3vw, 40px) !important;
+    margin-top: 1rem;
+  }
+  .desktop-animation-title {
+    position: relative;
+    text-align: center;
+    margin: 1rem auto 0;
+    width: 57%;
+    font-size: 1.2rem;
+  }
+  #desktop-scroll-section {
+    height: auto;
+  }
+  .desktop-stage {
+    height: auto;
+    width: 408px;
+  }
+  #desktop-point-earning {
+    margin-top: 4.2rem;
+    margin-left: -8rem;
+    width: 47%;
+  }
+  #desktop-point-employers {
+    margin-top: 0rem;
+  }
+  #desktop-point-tuition {
+    margin-top: 10.2rem;
+    margin-left: 8rem;
+  }
+  #desktop-point-support {
+    margin-top: 6rem;
+    width: 57%;
+    left: -14rem;
+    margin-bottom: 2rem;
+  }
+}
