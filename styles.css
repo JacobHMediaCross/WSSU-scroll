@@ -86,6 +86,24 @@ body.animation-proof-page {
     drop-shadow(0 0 16px rgba(255, 198, 204, 0.9));
 }
 
+.red-blur {
+  position: absolute;
+  width: 30vw;
+  opacity: .2;
+}
+
+.red-blur.left {
+  left: 0px;
+  rotate: 180deg;
+  top: 50%;
+}
+
+.red-blur.right {
+  right: 0px;
+  top: 22%;
+  width: 30vw;
+}
+
 img {
   display: block;
   max-width: 100%;
