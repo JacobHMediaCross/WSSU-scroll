@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ram Path Animation - SVG Motion</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="animation-proof-page">
+    <div class="sizer" aria-hidden="true"></div>
+
+    <section class="path-proof-section" id="ram-path-proof" aria-label="Ram path animation proof">
+      <svg
+        class="path-proof-svg"
+        viewBox="-120 -140 1263 2380"
+        role="img"
+        aria-label="Ram head moving down the red vector path"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <defs>
+          <filter id="path-proof-glow" x="-20%" y="-10%" width="140%" height="120%">
+            <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="4.65" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <path
+          id="svg-motion-path"
+          class="path-proof-line"
+          d="M992.615 -44C1007.8 17.9271 1016.26 326.748 971.523 430.072C827.811 762.038 194.708 563.048 194.708 858.925C194.708 1154.8 1016.9 1037.08 1000.65 1324.69C987.38 1559.71 276.999 1567.56 73.7895 1815.42C73.7895 1815.42 -52.1917 1942.53 73.7895 2103"
+          fill="none"
+          stroke="#da1f33"
+          stroke-miterlimit="10"
+          stroke-width="17"
+        />
+
+        <text class="path-proof-bullet" data-progress="0.09" x="720" y="290" text-anchor="middle">
+          <tspan x="450">Proven track record</tspan>
+          <tspan x="450" dy="70">for career mobility</tspan>
+        </text>
+        <text class="path-proof-bullet" data-progress="0.18" x="245" y="600" text-anchor="middle">
+          <tspan x="0">Higher earning</tspan>
+          <tspan x="0" dy="70">potential</tspan>
+        </text>
+        <text class="path-proof-bullet" data-progress="0.35" x="760" y="850" text-anchor="middle">
+          <tspan x="760">Direct access</tspan>
+          <tspan x="760" dy="70">to employers</tspan>
+          <tspan x="760" dy="70">in your field</tspan>
+        </text>
+        <text class="path-proof-bullet" data-progress="0.54" x="780" y="1350" text-anchor="middle">
+          <tspan x="350">Affordable tuition</tspan>
+        </text>
+        <text class="path-proof-bullet" data-progress="0.84" x="245" y="1900" text-anchor="middle">
+          <tspan x="500">Personalized support</tspan>
+          <tspan x="500" dy="70">from faculty &amp; staff</tspan>
+        </text>
+
+        <image class="path-proof-ram" href="assets/ram-head.png" x="-120" y="-109" width="240" height="218">
+          <animateMotion calcMode="paced" dur="8s" repeatCount="indefinite">
+            <mpath href="#svg-motion-path" xlink:href="#svg-motion-path" />
+          </animateMotion>
+        </image>
+      </svg>
+    </section>
+
+    <script>
+      const svgMotion = document.querySelector(".path-proof-svg");
+      const svgBullets = Array.from(document.querySelectorAll(".path-proof-bullet"));
+      const svgMotionDuration = 8;
+
+      const updateSvgBulletLights = () => {
+        const progress = (svgMotion.getCurrentTime() % svgMotionDuration) / svgMotionDuration;
+
+        svgBullets.forEach((bullet) => {
+          const lightProgress = Number(bullet.dataset.progress);
+
+          bullet.classList.toggle("is-lit", progress >= lightProgress);
+        });
+
+        window.requestAnimationFrame(updateSvgBulletLights);
+      };
+
+      if (svgMotion && svgBullets.length) {
+        window.requestAnimationFrame(updateSvgBulletLights);
+      }
+    </script>
+  </body>
+</html>
