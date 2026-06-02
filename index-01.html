@@ -213,10 +213,13 @@
           animationStart = timestamp;
         }
 
-        const progress = ((timestamp - animationStart) % duration) / duration;
+        const progress = Math.min((timestamp - animationStart) / duration, 1);
 
         placeRamOnPath(progress);
-        window.requestAnimationFrame(animateRam);
+
+        if (progress < 1) {
+          window.requestAnimationFrame(animateRam);
+        }
       };
 
       const startRamAnimation = () => {
