@@ -186,95 +186,6 @@
       <img class="red-blur left" src="assets/red-blur.png" />
     </section>
 
-    <script>
-      const motionPath = document.querySelector("#js-motion-path");
-      const ramHead = document.querySelector("#js-path-ram");
-      const pathBullets = Array.from(document.querySelectorAll(".path-proof-bullet"));
-      const duration = 8000;
-      let animationStart = null;
-      let animationStarted = false;
-      let startCheckFrame = null;
-
-      const updateBulletLights = (progress) => {
-        pathBullets.forEach((bullet) => {
-          const lightProgress = Number(bullet.dataset.progress);
-
-          bullet.classList.toggle("is-lit", progress >= lightProgress);
-        });
-      };
-
-      const placeRamOnPath = (progress) => {
-        const pathLength = motionPath.getTotalLength();
-        const point = motionPath.getPointAtLength(pathLength * progress);
-
-        ramHead.setAttribute("transform", `translate(${point.x} ${point.y})`);
-        updateBulletLights(progress);
-      };
-
-      const animateRam = (timestamp) => {
-        if (animationStart === null) {
-          animationStart = timestamp;
-        }
-
-        const progress = Math.min((timestamp - animationStart) / duration, 1);
-
-        placeRamOnPath(progress);
-
-        if (progress < 1) {
-          window.requestAnimationFrame(animateRam);
-        }
-      };
-
-      const startRamAnimation = () => {
-        if (animationStarted) {
-          return;
-        }
-
-        animationStarted = true;
-        animationStart = null;
-        window.requestAnimationFrame(animateRam);
-      };
-
-      const checkRamAnimationStart = () => {
-        if (animationStarted) {
-          return;
-        }
-
-        const section = document.querySelector(".path-proof-section");
-
-        if (!section) {
-          return;
-        }
-
-        const sectionRect = section.getBoundingClientRect();
-        const triggerPoint = window.innerHeight * 0.5;
-
-        if (sectionRect.top <= triggerPoint && sectionRect.bottom >= triggerPoint) {
-          startRamAnimation();
-        }
-      };
-
-      const scheduleRamAnimationStartCheck = () => {
-        if (startCheckFrame) {
-          return;
-        }
-
-        startCheckFrame = window.requestAnimationFrame(() => {
-          startCheckFrame = null;
-          checkRamAnimationStart();
-        });
-      };
-
-      if (motionPath && ramHead) {
-        placeRamOnPath(0);
-        window.addEventListener("scroll", scheduleRamAnimationStartCheck, { passive: true });
-        window.addEventListener("resize", scheduleRamAnimationStartCheck);
-        window.addEventListener("load", scheduleRamAnimationStartCheck);
-        window.addEventListener("pageshow", scheduleRamAnimationStartCheck);
-        window.requestAnimationFrame(checkRamAnimationStart);
-      }
-    </script>
-
       <section class="flex dean-quote">
         <img src="assets/dean-boykin.jpg" alt="Montrale Boykin, Dean, Graduate College" />
         <blockquote>
@@ -297,13 +208,14 @@
         Winston-Salem, NC 27110 <span>|</span> 336-750-2000
       </address>
       <div class="social-links" aria-label="Social links">
-        <a href="#" aria-label="Facebook"><img src="assets/facebook.png" alt="Facebook" /></a>
-        <a href="#" aria-label="Instagram"><img src="assets/instagram.png" alt="instagram Logo" /></a>
-        <a href="#" aria-label="YouTube"><img src="assets/youtube.png" alt="You Tube Logo" /></a>
-        <a href="#" aria-label="LinkedIn"><img src="assets/linkedin.png" alt="LinkedIn Logo" /></a>
+        <a href="https://www.facebook.com/WSSU1892" aria-label="Facebook"><img src="assets/facebook.png" alt="Facebook Logo" /></a>
+        <a href="http://www.instagram.com/wssu1892" aria-label="Instagram"><img src="assets/instagram.png" alt="Instagram Logo" /></a>
+        <a href="https://www.youtube.com/wssu1892" aria-label="YouTube"><img src="assets/youtube.png" alt="You Tube Logo" /></a>
+        <a href="https://www.linkedin.com/company/winston-salem-state-university/" aria-label="LinkedIn"><img src="assets/linked-in.png" alt="LinkedIn Logo" /></a>
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/animate-on-path.js"></script>
   </body>
 </html>

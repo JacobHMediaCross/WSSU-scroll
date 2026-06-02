@@ -35,11 +35,6 @@ body.animation-proof-page {
   background: var(--black);
 }
 
-.animation-proof-page .sizer {
-  height: 1500px;
-  background: var(--black);
-}
-
 .path-proof-section {
   display: grid;
   padding: 24px;
@@ -1373,6 +1368,7 @@ select {
   :root {
     --header-height: 122px;
   }
+
   .path-proof-svg {
     display: block;
     max-width: 700px;
