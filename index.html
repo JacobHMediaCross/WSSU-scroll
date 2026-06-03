@@ -216,9 +216,42 @@
         scrollTrigger: {
           trigger: "#scroll-section",
           start: "top-=80 top",
-          end: "+=2500",
+          end: "+=500",
           scrub: true,
-          pin: true,
+          pin: false,
+          onUpdate: function(self) {
+            let currentProgress = self.progress;
+            console.log("Scroll progress:", currentProgress);
+            if(currentProgress > 0.046){
+              document.getElementById("point-career").classList.add("is-neon-lit");
+            }else{
+              document.getElementById("point-career").classList.remove("is-neon-lit");
+            }
+
+            if(currentProgress > 0.256){
+              document.getElementById("point-earning").classList.add("is-neon-lit");
+            }else{
+              document.getElementById("point-earning").classList.remove("is-neon-lit");
+            }
+
+            if(currentProgress > 0.38){
+              document.getElementById("point-employers").classList.add("is-neon-lit");
+            }else{
+              document.getElementById("point-employers").classList.remove("is-neon-lit");
+            }
+
+            if(currentProgress > 0.56){
+              document.getElementById("point-tuition").classList.add("is-neon-lit");
+            }else{
+              document.getElementById("point-tuition").classList.remove("is-neon-lit");
+            }
+
+            if(currentProgress > 0.712){
+              document.getElementById("point-support").classList.add("is-neon-lit");
+            }else{
+              document.getElementById("point-support").classList.remove("is-neon-lit");
+            }
+          }
         }
       });
 
