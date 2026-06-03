@@ -6,7 +6,6 @@ const neonScrollSelectors = [
   ".inquiry-copy h2",
   ".aid-band h2",
   ".power-section h2",
-  ".program-code",
   ".program-hero h1",
   ".program-intro h2",
   ".innovators-copy h2",
@@ -125,164 +124,14 @@ if ("ResizeObserver" in window) {
   neonLayoutObserver.observe(document.body);
 }
 
-const powerSection = document.querySelector(".power-section");
-
-if (powerSection) {
-  const powerPointWrap = powerSection.querySelector(".power-points-wrap");
-  const powerRamHead = powerSection.querySelector(".power-ram-head");
-  const powerPoints = Array.from(powerSection.querySelectorAll(".power-points li"));
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let powerSequenceStarted = false;
-  let activePowerPoint = powerPoints[0];
-
-  const scrollWindowImmediately = (amount) => {
-    const previousScrollBehavior = document.documentElement.style.scrollBehavior;
-
-    document.documentElement.style.scrollBehavior = "auto";
-    window.scrollBy({ top: amount, behavior: "auto" });
-    document.documentElement.style.scrollBehavior = previousScrollBehavior;
-  };
-
-  // Position the ram head beside the point currently controlled by the user's scroll.
-  const placePowerRam = (point, { keepInView = false } = {}) => {
-    if (!powerPointWrap || !powerRamHead || !point) {
-      return;
-    }
-
-    const wrapRect = powerPointWrap.getBoundingClientRect();
-    const pointRect = point.getBoundingClientRect();
-    const ramHeight = powerRamHead.offsetHeight || powerRamHead.getBoundingClientRect().height;
-    const ramOffset = pointRect.top - wrapRect.top + (pointRect.height - ramHeight) / 2;
-    const ramBottom = wrapRect.top + ramOffset + ramHeight;
-
-    powerSection.style.setProperty("--power-ram-y", `${Math.max(0, ramOffset)}px`);
-
-    
-  };
-
-  const getScrollActivePowerPoint = () => {
-    const nextPointTrigger = window.innerHeight * 0.5;
-    let nextActivePoint = powerPoints[0];
-
-    powerPoints.forEach((point) => {
-      if (point.getBoundingClientRect().top <= nextPointTrigger) {
-        nextActivePoint = point;
-      }
-    });
-
-    return nextActivePoint;
-  };
-
-  const setActivePowerPoint = (point, { keepInView = false } = {}) => {
-    if (!point) {
-      return;
-    }
-
-    if (activePowerPoint !== point || !point.classList.contains("is-active")) {
-      powerPoints.forEach((item) => {
-        item.classList.remove("is-active");
-      });
-
-      activePowerPoint = point;
-
-      if (!prefersReducedMotion.matches) {
-        point.classList.remove("is-active");
-        void point.offsetWidth;
-      }
-
-      point.classList.add("is-active");
-    }
-
-    placePowerRam(point, { keepInView });
-  };
-
-  const updatePowerPointFromScroll = ({ keepInView = false } = {}) => {
-    if (!powerSequenceStarted || !powerPoints.length) {
-      return;
-    }
-
-    setActivePowerPoint(getScrollActivePowerPoint(), { keepInView });
-  };
-
-  const startPowerSequence = () => {
-    if (powerSequenceStarted || !powerPoints.length) {
-      return;
-    }
-
-    powerSequenceStarted = true;
-    powerSection.classList.add("power-sequence-started");
-    updatePowerPointFromScroll({ keepInView: true });
-  };
-
-  placePowerRam(activePowerPoint);
-  window.addEventListener("resize", () => placePowerRam(activePowerPoint));
-  window.addEventListener("load", () => placePowerRam(activePowerPoint));
-
-  // Start when the Power section has moved about a quarter up from the bottom of the viewport.
-  const checkPowerSequenceTrigger = () => {
-    if (powerSequenceStarted) {
-      return true;
-    }
-
-    const sectionRect = powerSection.getBoundingClientRect();
-
-    if (sectionRect.top <= window.innerHeight * 0.75 && sectionRect.bottom > 0) {
-      startPowerSequence();
-      return true;
-    }
-
-    return false;
-  };
-
-  let powerTriggerFrame;
-  const schedulePowerSequenceCheck = () => {
-    if (powerTriggerFrame) {
-      return;
-    }
-
-    powerTriggerFrame = window.requestAnimationFrame(() => {
-      powerTriggerFrame = null;
-      if (checkPowerSequenceTrigger()) {
-        updatePowerPointFromScroll({ keepInView: true });
-      }
-    });
-  };
-
-  if ("IntersectionObserver" in window) {
-    const powerSequenceObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const didStart = checkPowerSequenceTrigger();
-
-            if (didStart) {
-              observer.unobserve(entry.target);
-            }
-          }
-        });
-      },
-      {
-        rootMargin: "0px 0px -25% 0px",
-        threshold: 0,
-      },
-    );
-
-    powerSequenceObserver.observe(powerSection);
-  }
-
-  window.addEventListener("scroll", schedulePowerSequenceCheck, { passive: true });
-  window.addEventListener("resize", schedulePowerSequenceCheck);
-  window.addEventListener("load", schedulePowerSequenceCheck);
-  window.addEventListener("pageshow", schedulePowerSequenceCheck);
-  window.requestAnimationFrame(checkPowerSequenceTrigger);
-}
-
 // Only wire up the mobile menu if the current page includes both menu elements.
 if (menuButton && mobileNav) {
   // Keep this breakpoint in sync with the CSS rule that hides the burger menu.
   const mobileBreakpoint = window.matchMedia("(max-width: 980px)");
   const menuAnimationDuration = 380;
+  const menuOpenDelay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 260;
   let menuCloseTimer;
+  let menuOpenTimer;
 
   // This keeps the button label, expanded state, and animated menu state in sync.
   const setMenuButtonState = (isOpen) => {
@@ -293,20 +142,37 @@ if (menuButton && mobileNav) {
   // Opening starts from the hidden state, then adds the class on the next frame so CSS can animate it.
   const openMobileMenu = () => {
     window.clearTimeout(menuCloseTimer);
+    window.clearTimeout(menuOpenTimer);
     mobileNav.hidden = false;
     mobileNav.classList.remove("is-closing");
+    // The body class fades in the page-dimming backdrop behind the mobile dropdown.
+    document.body.classList.add("mobile-menu-backdrop-visible");
     setMenuButtonState(true);
 
-    window.requestAnimationFrame(() => {
+    const showOpenMenu = () => {
+      if (mobileNav.hidden || menuButton.getAttribute("aria-expanded") !== "true") {
+        return;
+      }
+
       mobileNav.classList.add("is-open");
-    });
+    };
+
+    // Let the backdrop darken first, then slide the dropdown out a beat later.
+    menuOpenTimer = window.setTimeout(() => {
+      menuOpenTimer = null;
+      window.requestAnimationFrame(showOpenMenu);
+      window.setTimeout(showOpenMenu, 32);
+    }, menuOpenDelay);
   };
 
   // Closing removes the open class first, then hides the menu after the CSS transition finishes.
   const closeMobileMenu = ({ immediate = false } = {}) => {
     window.clearTimeout(menuCloseTimer);
+    window.clearTimeout(menuOpenTimer);
     setMenuButtonState(false);
     mobileNav.classList.remove("is-open");
+    // Removing the backdrop class lets the dimmed page fade back to normal as the menu closes.
+    document.body.classList.remove("mobile-menu-backdrop-visible");
 
     if (immediate || mobileNav.hidden) {
       mobileNav.classList.remove("is-closing");
@@ -323,9 +189,11 @@ if (menuButton && mobileNav) {
 
   // Start every page load from a closed menu, even if the browser restores old state.
   const resetMobileMenu = () => {
+    window.clearTimeout(menuOpenTimer);
     menuButton.setAttribute("aria-expanded", "false");
     menuButton.setAttribute("aria-label", "Open menu");
     mobileNav.classList.remove("is-open", "is-closing");
+    document.body.classList.remove("mobile-menu-backdrop-visible");
     mobileNav.hidden = true;
   };
 

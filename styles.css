@@ -117,8 +117,22 @@ select {
 }
 
 .section-inner {
+  display: flex;
+  align-items: center;
+}
+
+.section-inner {
   width: min(var(--max), calc(100% - 48px));
   margin-inline: auto;
+}
+
+:where(section) {
+  position: relative;
+}
+
+:where(section.flex) {
+  align-items: center;
+  justify-content: center;
 }
 
 .site-header {
@@ -292,9 +306,7 @@ select {
 }
 
 .landing-hero {
-  position: relative;
   align-items: stretch;
-  justify-content: center;
   min-height: 42vw;
   overflow: hidden;
   background: var(--black);
@@ -322,9 +334,6 @@ select {
 }
 
 .program-finder {
-  position: relative;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
   padding: 76px 24px 72px;
   background:
@@ -340,7 +349,6 @@ select {
 .lead-room-section .section-inner,
 .affordability-section .section-inner,
 .serve-section .section-inner {
-  display: flex;
   flex-direction: column;
   align-items: center;
 }
@@ -417,7 +425,6 @@ select {
 
 
 .inquiry-section {
-  position: relative;
   overflow: hidden;
   background: var(--white);
 }
@@ -432,14 +439,12 @@ select {
   background: var(--red);
 }
 
-.inquiry-section-landing {
-  align-items: center;
-  justify-content: center;
+.inquiry-section.landing {
   gap: 4vw;
   padding: 108px 24px 140px;
 }
 
-.inquiry-section-landing::after {
+.inquiry-section.landing::after {
   content: "";
   position: absolute;
   left: 0;
@@ -461,24 +466,24 @@ select {
   object-fit: cover;
 }
 
-.campus-left {
+.campus-collage .left {
   left: max(-175px, -12vw);
   top: 3px;
   width: clamp(260px, 42vw, 732px);
   opacity: 0.8;
 }
 
-.inquiry-section-landing > .photo-card,
-.inquiry-section-landing > .inquiry-copy {
+.inquiry-section.landing > .photo-card,
+.inquiry-section.landing > .inquiry-copy {
   position: relative;
   z-index: 2;
 }
 
-.inquiry-section-landing > .photo-card {
+.inquiry-section.landing > .photo-card {
   flex: 0 1 521px;
 }
 
-.inquiry-section-landing > .inquiry-copy {
+.inquiry-section.landing > .inquiry-copy {
   flex: 0 1 600px;
 }
 
@@ -494,7 +499,7 @@ select {
   justify-content: center;
 }
 
-.photo-card-red img {
+.photo-card.red img {
   border: 7px solid var(--red);
   border-radius: 25px;
   z-index: 2;
@@ -597,10 +602,20 @@ select {
   background: transparent;
 }
 
-.outline-button-gold {
+.outline-button.gold {
   border-color: var(--gold);
   color: var(--gold);
 }
+
+/*
+  Do the above instead of the below, paired with editing the html button
+
+  .outline-button-gold {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+*/
 
 .form-status {
   min-height: 1.4em;
@@ -611,8 +626,6 @@ select {
 }
 
 .aid-band {
-  align-items: center;
-  justify-content: center;
   padding: 74px 24px 82px;
   background: var(--red);
   color: var(--white);
@@ -636,15 +649,10 @@ select {
 }
 
 .power-section {
-  position: relative;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
   padding: 100px 24px 50px;
   background-color: var(--black);
   color: var(--white);
-  --power-ram-size: clamp(112px, 15.5vw, 198px);
-  --power-ram-y: 0px;
 }
 
 .power-section h2 {
@@ -665,106 +673,7 @@ select {
   color: var(--white);
 }
 
-.neon-road {
-  position: absolute;
-  top: 110px;
-  bottom: 0;
-  left: 50%;
-  width: min(var(--max), calc(100% - 48px));
-  transform: translateX(-50%);
-}
-
-.road-line {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 66% 20%, rgba(255, 255, 255, 0) 0 28%, rgba(255, 255, 255, 0.9) 29%, rgba(255, 255, 255, 0.9) 30%, rgba(255, 38, 61, 0.95) 31%, rgba(255, 38, 61, 0.95) 32%, rgba(255, 255, 255, 0) 33%),
-    radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0) 0 28%, rgba(255, 255, 255, 0.9) 29%, rgba(255, 255, 255, 0.9) 30%, rgba(255, 38, 61, 0.95) 31%, rgba(255, 38, 61, 0.95) 32%, rgba(255, 255, 255, 0) 33%),
-    radial-gradient(ellipse at 46% 72%, rgba(255, 255, 255, 0) 0 30%, rgba(255, 255, 255, 0.9) 31%, rgba(255, 255, 255, 0.9) 32%, rgba(255, 38, 61, 0.95) 33%, rgba(255, 38, 61, 0.95) 34%, rgba(255, 255, 255, 0) 35%);
-  filter: drop-shadow(0 0 14px rgba(255, 38, 61, 0.95));
-}
-
-.neon-road img {
-  position: absolute;
-  top: 43%;
-  left: 35%;
-  width: 198px;
-  transform: rotate(8deg);
-  filter: drop-shadow(0 0 12px rgba(204, 17, 44, 0.75));
-}
-
-.power-points-wrap {
-  position: relative;
-  z-index: 2;
-  width: min(1149px, 100%);
-}
-
-.power-ram-head {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  width: var(--power-ram-size);
-  aspect-ratio: 198 / 180;
-  opacity: 0;
-  transform: translate3d(0, var(--power-ram-y), 0) scale(0.94);
-  filter: drop-shadow(0 0 12px rgba(213, 35, 52, 0.9));
-  pointer-events: none;
-  transition:
-    opacity 260ms ease,
-    transform 620ms cubic-bezier(0.16, 1, 0.3, 1),
-    filter 300ms ease;
-}
-
-.power-section.power-sequence-started .power-ram-head {
-  opacity: 1;
-  transform: translate3d(0, var(--power-ram-y), 0) scale(.75);
-}
-
-.power-points {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 54px;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    font-size: clamp(28px, 3.15vw, 37px);
-    font-weight: 600;
-    text-align: center;
-    padding-top: 45px;
-}
-
-.power-points li {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 92px;
-  padding-inline: clamp(100px, 18vw, 215px);
-  font-family: 'Tilt Neon';
-  font-weight: 600;
-  line-height: 1.18;
-  opacity: 1;
-  filter: none;
-  text-shadow: none;
-  transition: opacity 220ms ease, filter 220ms ease, text-shadow 220ms ease, font-weight 220ms ease;
-}
-
-.power-points li.is-active {
-  font-weight: 800;
-  filter: brightness(1);
-  text-shadow:
-    0 0 6px currentColor,
-    0 0 16px currentColor,
-    0 0 30px currentColor;
-  animation: neon-flicker 1.25s linear 1 both;
-}
-
 .dean-quote {
-  align-items: center;
-  justify-content: center;
   gap: clamp(64px, 9vw, 130px);
   padding: 92px 24px;
   background: var(--red-bright);
@@ -874,13 +783,10 @@ select {
 }
 
 .program-hero {
-  position: relative;
   min-height: clamp(500px, 49vw, 702px);
   overflow: hidden;
   background: var(--black);
   color: var(--white);
-  display: flex;
-  flex-direction: row;
   align-items: stretch;
 }
 
@@ -945,8 +851,6 @@ select {
 }
 
 .program-intro {
-  align-items: center;
-  justify-content: center;
   padding: 60px 0 68px;
   background: var(--red);
   color: var(--white);
@@ -969,36 +873,32 @@ select {
   line-height: 1.38;
 }
 
-.inquiry-section-program {
-  align-items: center;
-  justify-content: center;
+.inquiry-section.program {
   /* flex-wrap: wrap; */
   gap: clamp(58px, 8vw, 112px);
   /* padding-top: 126px; */
   padding-inline: 24px;
 }
 
-.inquiry-section-program .image-container {
+.inquiry-section.program .image-container {
   position: relative;
   z-index: 2;
   flex: 0 1 521px;
 }
 
-.inquiry-section-program .form-container {
+.inquiry-section.program .form-container {
   position: relative;
   z-index: 2;
   flex: 0 1 561px;
 }
 
-.inquiry-section-program .campus-left {
+.inquiry-section.program .campus-collage .left {
   top: 250px;
   left: -360px;
   width: 820px;
 }
 
 .innovators-section {
-  align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
   gap: clamp(60px, 8vw, 110px);
   padding: 132px 0 136px;
@@ -1007,7 +907,6 @@ select {
     radial-gradient(circle at 58% 54%, rgba(255, 38, 61, 0.72) 0 12%, rgba(255, 38, 61, 0.24) 22%, rgba(0, 0, 0, 0) 34%),
     var(--black);
   color: var(--white);
-  position: relative;
   overflow: visible;
 }
 
@@ -1052,7 +951,6 @@ select {
 }
 
 .career-paths {
-  justify-content: center;
   padding: 96px 0 112px;
   background: var(--white);
   text-align: center;
@@ -1088,7 +986,6 @@ select {
 }
 
 .stats-band {
-  justify-content: center;
   padding: 62px 0 66px;
   background: var(--black);
   color: var(--white);
@@ -1126,9 +1023,6 @@ select {
 }
 
 .lead-room-section {
-  position: relative;
-  flex-direction: column;
-  align-items: center;
   overflow: hidden;
   padding: 120px 0 0;
   background: linear-gradient(180deg, var(--gold) 0%, var(--gold) 54%, rgba(215, 168, 14, 0.36) 74%, rgba(215, 168, 14, 0) 100%);
@@ -1159,9 +1053,6 @@ select {
 }
 
 .affordability-section {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 106px 0 118px;
   background: var(--black);
   color: var(--white);
@@ -1188,9 +1079,6 @@ select {
 }
 
 .serve-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: 104px 0 126px;
   background: var(--white);
   text-align: center;
@@ -1354,9 +1242,7 @@ select {
   .neon-button:focus-visible,
   .outline-button:hover,
   .outline-button:focus-visible,
-  .power-ram-head,
-  .power-points li,
-  .power-points li.is-active,
+  body::before,
   .neon-on-scroll.neon-lit {
     animation: none;
     transition: none;
@@ -1415,23 +1301,39 @@ select {
     display: block;
   }
 
+  body::before {
+    content: "";
+    position: fixed;
+    z-index: 50;
+    inset: var(--header-height) 0 0;
+    background: rgba(0, 0, 0, 0.68);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 260ms ease;
+  }
+
+  body.mobile-menu-backdrop-visible::before {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
   .section-inner {
     width: min(100% - 32px, 680px);
   }
 
-  .inquiry-section-landing,
+  .inquiry-section.landing,
   .innovators-grid,
   .dean-quote {
     flex-direction: column;
     align-items: center;
   }
 
-  .inquiry-section-landing,
+  .inquiry-section.landing,
   .innovators-grid {
     gap: 42px;
   }
 
-  .photo-card-red {
+  .photo-card.red {
     display: none;
   }
 
@@ -1453,7 +1355,7 @@ select {
 @media (max-width: 720px) {
 /* When the screen is 720px or less, the below apply */
   
-  .inquiry-section-landing > .inquiry-copy {
+  .inquiry-section.landing > .inquiry-copy {
     flex: 0 1 fit-content;
   }
 
@@ -1488,10 +1390,6 @@ select {
       position: absolute;
       top: -9vw;
       left: -7.5vw;
-  }
-
-  .power-points {
-    padding-top: 0px;
   }
 
   .neon-button {
@@ -1529,22 +1427,6 @@ select {
     min-height: auto;
   }
 
-  .program-type span {
-    min-width: 148px;
-    min-height: 35px;
-    border-width: 2px;
-    border-radius: 10px;
-    font-size: 20px;
-  }
-
-  .program-type-master span {
-    min-width: 196px;
-  }
-
-  .program-type-doctoral span {
-    min-width: 209px;
-  }
-
   .program-type p {
     width: 100%;
     font-size: 18px;
@@ -1554,31 +1436,31 @@ select {
     padding: 58px 0 74px;
   }
 
-  .inquiry-section-landing {
+  .inquiry-section.landing {
     padding: 58px 13vw 100px;
   }
 
-  .inquiry-section-landing::after {
+  .inquiry-section.landing::after {
     height: 50px;
   }
 
-  .inquiry-section-landing .photo-card {
+  .inquiry-section.landing .photo-card {
     display: none;
   }
 
-  .inquiry-section-program .photo-card {
+  .inquiry-section.program .photo-card {
     order: 2;
     width: 248px;
     border-width: 3px;
     border-radius: 19px;
   }
 
-  .inquiry-section-program .inquiry-copy {
+  .inquiry-section.program .inquiry-copy {
     order: 1;
   }
 
-  .campus-left,
-  .campus-right {
+  .campus-collage .left,
+  .campus-collage .right {
     opacity: 0.22;
   }
 
@@ -1632,38 +1514,10 @@ select {
 
   .power-section {
     padding: 45px 14px 48px;
-    --power-ram-size: clamp(64px, 18vw, 92px);
   }
 
   .power-section h2 {
     font-size: 28px;
-  }
-
-  .neon-road {
-    top: 56px;
-    bottom: 0;
-    width: calc(100% - 28px);
-  }
-
-  .neon-road img {
-    top: 42%;
-    left: 47%;
-    width: 70px;
-  }
-
-  .power-points-wrap {
-    width: min(100%, 393px);
-    margin-top: 42px;
-  }
-
-  .power-points {
-    gap: 22px;
-    font-size: clamp(19px, 5vw, 24px);
-  }
-
-  .power-points li {
-    min-height: 52px;
-    padding-inline: clamp(72px, 20vw, 96px);
   }
 
   .dean-quote {
@@ -1750,11 +1604,11 @@ select {
     font-size: 12px;
   }
 
-  .inquiry-section-program {
+  .inquiry-section.program {
     padding-top: 32px;
   }
 
-  .inquiry-section-program .campus-left {
+  .inquiry-section.program .campus-collage .left {
     top: 760px;
     left: -160px;
     width: 480px;
