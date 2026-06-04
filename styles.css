@@ -27,6 +27,52 @@ body {
   color: var(--black);
   font-family: "Open Sans", Arial, sans-serif;
   letter-spacing: 0;
+  text-align: center;
+}
+
+h1, h2 {
+  font-family: "Tilt Neon", sans-serif;
+  font-weight: 400;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(42px, 4vw, 56px);
+}
+
+h2 {
+  font-size: clamp(28px, 3vw, 36px);
+  margin-top: 0px;
+}
+
+h2.red-bright {
+  color: var(--red-bright);
+}
+
+h2.red {
+  color: var(--red);
+}
+
+h2.white {
+  color: var(--white);
+}
+
+h2.red-shadow {
+  text-shadow: 0 0 12px rgba(204, 17, 44, 0.9);
+}
+
+h2.gold {
+  color: var(--gold);
+}
+
+h2 span.white {
+  color: var(--white);
+}
+
+p {
+  font-size: clamp(20px, 2vw, 24px);
+  margin: 0px;
 }
 
 body.animation-proof-page {
@@ -353,22 +399,14 @@ select {
   align-items: center;
 }
 
-.program-finder h2 {
-  margin: 0 0 54px;
-  font-family: "Tilt Neon", sans-serif;
-  font-size: clamp(32px, 3.6vw, 52px);
-  font-weight: 400;
-  line-height: 1.14;
-  text-transform: uppercase;
-}
-
 .program-type-grid {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 5vw;
-  width: min(var(--max), 100%);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: min(var(--max), 100%);
+    column-gap: 5vw;
+    row-gap: 1vw;
 }
 
 .program-type {
@@ -395,9 +433,6 @@ select {
 
 .program-type p {
   width: min(100%, 325px);
-  margin: 0;
-  font-size: 25px;
-  line-height: 1.28;
 }
 
 .gold {
@@ -412,7 +447,7 @@ select {
   color: var(--green);
 }
 
-.program-type p {
+p.white {
   color: var(--white);
 }
 
@@ -521,22 +556,9 @@ select {
   align-items: center;
 }
 
-.inquiry-copy h2 {
-  margin: 0 0 12px;
-  color: var(--red-bright);
-  font-family: "Tilt Neon", sans-serif;
-  font-size: clamp(26px, 3vw, 38px);
-  font-weight: 400;
-  line-height: 1.15;
-  text-transform: uppercase;
-}
-
 .inquiry-copy > p {
   max-width: 90%;
   margin: 0 auto 44px;
-  font-size: clamp(16px, 1.8vw, 23px);
-  line-height: 1.35;
-  width: 90%;
 }
 
 .lead-form {
@@ -632,44 +654,15 @@ select {
   text-align: center;
 }
 
-.aid-band h2 {
-  margin: 0 0 18px;
-  font-family: "Tilt Neon", sans-serif;
-  font-size: clamp(28px, 3vw, 43px);
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
 .aid-band p {
   max-width: 790px;
   margin: 0;
-  font-size: clamp(18px, 2.2vw, 32px);
-  font-weight: 600;
-  line-height: 1.26;
 }
 
 .power-section {
   overflow: hidden;
   padding: 100px 24px 50px;
   background-color: var(--black);
-  color: var(--white);
-}
-
-.power-section h2 {
-  position: relative;
-  z-index: 2;
-  margin: 0;
-  color: var(--red-bright);
-  font-family: "Tilt Neon", sans-serif;
-  font-size: clamp(38px, 4vw, 48px);
-  font-weight: 400;
-  line-height: 1.12;
-  text-align: center;
-  text-transform: uppercase;
-  text-shadow: 0 0 14px rgba(213, 35, 52, 0.65);
-}
-
-.power-section h2 span {
   color: var(--white);
 }
 
@@ -699,9 +692,6 @@ select {
 
 .dean-quote p {
   margin: 0 auto 34px;
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 1.36;
 }
 
 .dean-quote cite {
@@ -783,7 +773,7 @@ select {
 }
 
 .program-hero {
-  min-height: clamp(500px, 49vw, 702px);
+  height: clamp(50px, 50vw, 650px);
   overflow: hidden;
   background: var(--black);
   color: var(--white);
@@ -857,20 +847,9 @@ select {
   text-align: center;
 }
 
-.program-intro h2 {
-  margin: 0 0 28px;
-  font-family: "Tilt Neon", sans-serif;
-  font-size: clamp(30px, 3.6vw, 52px);
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
 .program-intro p {
   max-width: 750px;
   margin: 0 auto;
-  font-size: clamp(20px, 2.5vw, 31px);
-  font-weight: 600;
-  line-height: 1.38;
 }
 
 .inquiry-section.program {
@@ -928,17 +907,6 @@ select {
   flex: 0 1 580px;
 }
 
-.innovators-copy h2 {
-  margin: 0 0 58px;
-  color: var(--white);
-  font-family: "Tilt Neon", sans-serif;
-  font-size: clamp(38px, 4.2vw, 50px);
-  font-weight: 400;
-  line-height: 1.16;
-  text-shadow: 0 0 12px rgba(204, 17, 44, 0.9);
-  text-transform: uppercase;
-}
-
 .innovators-copy ul {
   display: flex;
   flex-direction: column;
@@ -954,15 +922,6 @@ select {
   padding: 96px 0 112px;
   background: var(--white);
   text-align: center;
-}
-
-.career-paths h2 {
-  margin: 0 0 58px;
-  color: var(--gold);
-  font-family: "Tilt Neon", sans-serif;
-  font-size: clamp(26px, 3.2vw, 46px);
-  font-weight: 400;
-  text-transform: uppercase;
 }
 
 .career-paths ul {
@@ -1016,10 +975,6 @@ select {
 
 .stats-grid p {
   max-width: 305px;
-  margin: 10px auto 0;
-  font-size: clamp(18px, 2.2vw, 28px);
-  font-weight: 700;
-  line-height: 1.1;
 }
 
 .lead-room-section {
@@ -1029,20 +984,8 @@ select {
   text-align: center;
 }
 
-.lead-room-section h2 {
-  margin: 0 0 28px;
-  color: var(--white);
-  font-family: "Tilt Neon", sans-serif;
-  font-size: clamp(34px, 4vw, 53px);
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
 .lead-room-section p {
   max-width: 725px;
-  margin: 0 auto 54px;
-  font-size: clamp(20px, 2.4vw, 32px);
-  line-height: 1.34;
 }
 
 .lead-room-section img {
@@ -1059,23 +1002,9 @@ select {
   text-align: center;
 }
 
-.affordability-section h2,
-.serve-section h2 {
-  margin: 0 0 28px;
-  color: var(--red);
-  font-family: "Tilt Neon", sans-serif;
-  font-size: clamp(30px, 4vw, 55px);
-  font-weight: 400;
-  line-height: 1.12;
-  text-transform: uppercase;
-}
-
 .affordability-section p {
   max-width: 680px;
   margin: 0 auto;
-  font-size: clamp(18px, 2.2vw, 30px);
-  font-weight: 600;
-  line-height: 1.38;
 }
 
 .serve-section {
@@ -1092,9 +1021,6 @@ select {
 
 .serve-section p {
   max-width: 885px;
-  margin: 0 auto 54px;
-  font-size: clamp(18px, 2.2vw, 31px);
-  line-height: 1.4;
 }
 
 .serve-section .outline-button {
@@ -1413,23 +1339,16 @@ select {
     padding: 32px 14px 30px;
   }
 
-  .program-finder h2 {
-    margin-bottom: 26px;
-    font-size: 24px;
-  }
-
   .program-type-grid {
+    flex-direction: column;
     gap: 18px;
+    align-items: center;
   }
 
   .program-type {
     gap: 10px;
     min-height: auto;
-  }
-
-  .program-type p {
-    width: 100%;
-    font-size: 18px;
+    flex-basis: auto;
   }
 
   .inquiry-section {
@@ -1464,15 +1383,6 @@ select {
     opacity: 0.22;
   }
 
-  .inquiry-copy h2 {
-    font-size: 22px;
-  }
-
-  .inquiry-copy > p {
-    margin-bottom: 26px;
-    font-size: 13px;
-  }
-
   .lead-form {
     gap: 11px;
   }
@@ -1504,20 +1414,8 @@ select {
     padding: 27px 31px;
   }
 
-  .aid-band h2 {
-    font-size: 19px;
-  }
-
-  .aid-band p {
-    font-size: 14px;
-  }
-
   .power-section {
     padding: 45px 14px 48px;
-  }
-
-  .power-section h2 {
-    font-size: 28px;
   }
 
   .dean-quote {
@@ -1538,7 +1436,6 @@ select {
 
   .dean-quote p {
     margin-bottom: 8px;
-    font-size: 13px;
   }
 
   .dean-quote cite {
@@ -1563,10 +1460,6 @@ select {
     width: 52px;
     height: 52px;
     font-size: 11px;
-  }
-
-  .program-hero {
-    min-height: 216px;
   }
 
   .program-hero-image {
@@ -1594,14 +1487,8 @@ select {
     padding: 17px 0 23px;
   }
 
-  .program-intro h2 {
-    margin-bottom: 13px;
-    font-size: 20px;
-  }
-
   .program-intro p {
     max-width: 290px;
-    font-size: 12px;
   }
 
   .inquiry-section.program {
@@ -1618,11 +1505,6 @@ select {
     padding: 28px 0 48px;
   }
 
-  .innovators-copy h2 {
-    margin-bottom: 26px;
-    font-size: 26px;
-  }
-
   .innovators-copy ul {
     gap: 11px;
     font-size: 15px;
@@ -1630,11 +1512,6 @@ select {
 
   .career-paths {
     padding: 33px 0 45px;
-  }
-
-  .career-paths h2 {
-    margin-bottom: 22px;
-    font-size: 20px;
   }
 
   .career-paths ul {
@@ -1665,23 +1542,13 @@ select {
     font-size: 30px;
   }
 
-  .stats-grid p {
-    font-size: 12px;
-  }
-
   .lead-room-section {
     padding-top: 24px;
-  }
-
-  .lead-room-section h2 {
-    margin-bottom: 8px;
-    font-size: 23px;
   }
 
   .lead-room-section p {
     max-width: 316px;
     margin-bottom: 18px;
-    font-size: 14px;
   }
 
   .lead-room-section img {
@@ -1692,15 +1559,8 @@ select {
     padding: 25px 0 30px;
   }
 
-  .affordability-section h2,
-  .serve-section h2 {
-    margin-bottom: 10px;
-    font-size: 20px;
-  }
-
   .affordability-section p {
     max-width: 270px;
-    font-size: 12px;
   }
 
   .serve-section {
@@ -1714,7 +1574,6 @@ select {
 
   .serve-section p {
     margin-bottom: 24px;
-    font-size: 13px;
   }
 
   .serve-section .outline-button {
