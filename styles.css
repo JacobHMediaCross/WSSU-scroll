@@ -469,7 +469,7 @@ p.white {
 
 .neon-button:hover,
 .neon-button:focus-visible {
-  color: var(--white);
+  /* color: var(--white); */
   cursor: pointer;
 }
 
