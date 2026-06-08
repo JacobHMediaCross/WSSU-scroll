@@ -417,7 +417,6 @@ select {
 }
 
 
-
   .serve-section {
     padding: 28px 0 0px;
   }
@@ -972,8 +971,15 @@ p.white {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 58px;
+}
+
+.stat-stack {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  flex-direction: column;
 }
 
 .stats-grid > div {
@@ -988,10 +994,6 @@ p.white {
   font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
-}
-
-.stats-grid p {
-  max-width: 305px;
 }
 
 .lead-room-section {
@@ -1517,6 +1519,7 @@ p.white {
   .stats-grid {
     flex-wrap: nowrap;
     gap: 8px;
+    width: min(100% - 28px, 590px);
   }
 
   .stats-grid > div {
