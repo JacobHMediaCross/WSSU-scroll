@@ -377,7 +377,7 @@ select {
   inset: 0;
   min-height: 42vw;
   overflow: hidden;
-  background:url("assets/landing-hero.gif") center 42% / cover no-repeat;
+  background:url("images/landing-hero.gif") center 42% / cover no-repeat;
 }
 
 .hero-title {
@@ -806,7 +806,7 @@ p.white {
 
 .program-hero-image {
   flex: 1 1 50%;
-  background: url("assets/program-hero.jpg") right / cover no-repeat;
+  background: url("images/program-hero.jpg") right / cover no-repeat;
 }
 
 .program-hero-content {
@@ -1270,11 +1270,11 @@ p.white {
 }
 
 .innovators-section {
-  padding-bottom: 250px;
+  padding-bottom: 270px;
 }
 
 .career-paths {
-  padding-top: 250px;
+  padding-top: 270px;
 }
 
   .dean-quote {
@@ -1501,11 +1501,11 @@ p.white {
   }
 
   .innovators-section {
-  padding-bottom: 250px;
+  padding-bottom: 270px;
 }
 
 .career-paths {
-  padding-top: 250px;
+  padding-top: 270px;
 }
 
   .innovators-copy ul {
@@ -1574,11 +1574,11 @@ p.white {
   }
 
   .innovators-section {
-    padding-bottom: 150px;
+    padding-bottom: 170px;
   }
 
   .career-paths {
-    padding-top: 150px;
+    padding-top: 170px;
   }
 
   .serve-section .section-inner {
