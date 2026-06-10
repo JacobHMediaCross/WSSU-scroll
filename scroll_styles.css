@@ -155,6 +155,8 @@ svg {
     color: #fff;
     margin-top: -2.5rem;
     max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
   }
   svg {
     position: absolute;
@@ -180,7 +182,13 @@ svg {
     height: 180px;
     transform-origin: center center;
     z-index: 2;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
   }
+  #desktop-ram-head.show-stage {
+    opacity: 1;
+  }
+
   #desktop-animation-heading-container {
     padding: 1.2rem 0;
     background-color: #000;
@@ -205,6 +213,7 @@ svg {
   }
   .desktop-animation-title {
     position: relative;
+    z-index: 2;
     text-align: center;
     margin: 11vw auto 0;
     margin-top: 1vw;
@@ -254,6 +263,8 @@ svg {
   .desktop-stage {
     height: auto;
     width: 408px;
+    margin-left: auto;
+    margin-right: auto;
   }
   #desktop-point-earning {
     margin-top: 4.2rem;

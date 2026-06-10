@@ -277,6 +277,12 @@
           onUpdate: function(self) {
             let currentProgress = self.progress;
             console.log("Scroll progress:", currentProgress);
+
+            if(currentProgress > 0.05 && currentProgress < 0.9){
+              document.getElementById("desktop-ram-head").classList.add("show-stage");
+            }else{
+              document.getElementById("desktop-ram-head").classList.remove("show-stage");
+            }
             if(currentProgress > 0.154){
               document.getElementById("desktop-point-career").classList.add("is-neon-lit");
             }else{
